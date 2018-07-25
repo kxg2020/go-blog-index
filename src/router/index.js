@@ -25,6 +25,12 @@ const router = new Router({
       meta: { requiresAuth: true ,CName:"后台首页"},
       children:[
         {
+          path:"index",
+          name:"indexIndex",
+          component:Admin,
+          meta: { requiresAuth: true ,CName:"仪表盘"},
+        },
+        {
           path:"index/index",
           name:"indexIndex",
           component:Admin,
@@ -84,7 +90,7 @@ const router = new Router({
       path: "/login",
       name: "login",
       component: Login,
-      meta: { requiresAuth: true,CName:"登陆" }
+      meta: { requiresAuth: false,CName:"登陆" }
     },
     {
       path:"/getImage",
@@ -96,32 +102,15 @@ const router = new Router({
 });
 // 路由守卫,在每次请求中判断是否登录
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(record=>record.meta.requiresAuth)){
-    let userToken = Util.getCookie("user-login-token");
-    // 每个路由都进行token验证,防止恶意输入token
-    Vue.http.headers.common['Authorization'] = Util.getCookie("user-login-token");
-    if(to.name === 'login'){
-      if(userToken !== null){
-        // 如果是从首页手动输入地址跳转到登陆页,验证token是否正确,正确就重新跳回首页
-        Vue.http.post(Api.adminRoot.path,{},{emulateJSON:true}).then((e)=>{
-          if(e.body.status === 2){
-            next();
-          }else{
-            next("/index/index")
-          }
-        });
-      }else{
-        next()
-      }
+  if(to.meta.requiresAuth){
+    let token = Util.getCookie("user-login-token");
+    if(token){
+      next()
     }else{
-      Vue.http.post(Api.adminRoot.path,{},{emulateJSON:true}).then((e)=>{
-        if(e.body.status === 2){
-          next("/login");
-        }else{
-          next()
-        }
-      });
+      next({path:"/login"})
     }
+  }else{
+    next();
   }
 });
 

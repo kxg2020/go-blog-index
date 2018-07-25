@@ -9,6 +9,7 @@ import Resource from "vue-resource"
 import store from '@/store/store'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
+import Util          from  "@/util/util"
 Vue.directive('highlight', (el) => {
   let blocks = el.querySelectorAll('pre code');
   blocks.forEach((block) => {
@@ -18,7 +19,16 @@ Vue.directive('highlight', (el) => {
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(Resource);
-
+Vue.http.interceptors.push((request,next)=>{
+  request.headers.set('Authorization',Util.getCookie("user-login-token"));
+  next(function(response){
+    if(response.body.status === 2){
+      router.push({path: '/login'})
+    }else{
+      return  response;
+    }
+  });
+});
 
 new Vue({
   el: '#app',

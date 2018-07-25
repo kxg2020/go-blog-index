@@ -109,7 +109,17 @@ import Util from "@/util/util"
         if(key.keyCode === 13){
           this.submitForm('ruleForm');
         }
-      })
+      });
+      // 如果有token,验证token是否正确
+      let token = Util.getCookie("user-login-token");
+      let self = this;
+      if(token){
+        this.$http.post(Api.adminRoot.path,{},{emulateJSON:true}).then((e)=>{
+          if(e.body.status === 1){
+            self.$router.push({path:"/index/index"});
+          }
+        });
+      }
     }
   }
 </script>
