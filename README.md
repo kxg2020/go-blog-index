@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # go-blog
 
 > A Vue.js project
@@ -25,3 +26,7 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# go-blog-index
+go博客系统的前端vue页面
+>>>>>>> 56ec5073d4e80379bb8891ac8808145f105583f6
