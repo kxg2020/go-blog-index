@@ -1,4 +1,4 @@
-const domain = "http://127.0.0.1:8888/admin";
+const domain = "http://118.24.66.211:8888/admin";
 
 export default {
   name:"Api",

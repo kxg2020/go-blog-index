@@ -108,7 +108,6 @@
       },
       onSubmit(formName) {
         this.form.content = CKEDITOR.instances.editor.getData();
-        this.form.text = CKEDITOR.instances.editor.document.getBody().getText();
         let self = this;
         this.$refs[formName].validate((valid)=>{
           if(valid){
