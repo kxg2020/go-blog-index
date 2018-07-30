@@ -10,7 +10,6 @@ import ArticleEdit   from  "@/components/admin/article/Edit"
 import UserInsert    from  "@/components/admin/user/Insert"
 import UserList      from  "@/components/admin/user/List"
 import Admin         from  "@/components/admin/index/Admin"
-import Image         from  "@/components/admin/article/GetImage"
 import Util          from  "@/util/util"
 import Api           from  "@/api/interface"
 
@@ -92,12 +91,6 @@ const router = new Router({
       component: Login,
       meta: { requiresAuth: false,CName:"登陆" }
     },
-    {
-      path:"/getImage",
-      name:"getImage",
-      component:Image,
-      meta:{requiresAuth:false,CName:"上传图片"}
-    }
   ]
 });
 // 路由守卫,在每次请求中判断是否登录

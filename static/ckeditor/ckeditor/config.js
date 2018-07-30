@@ -37,6 +37,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
   config.autoUpdateElement = true;
   config.height = 300;
-  config.filebrowserUploadUrl="http://118.24.66.211:8888/admin/article/upload?backUrl=http://118.24.66.211:8080/getImage";
+  // config.filebrowserUploadUrl="http://118.24.66.211:8888/admin/article/upload?backUrl=http://118.24.66.211:8080/%23/getImage";
   config.extraPlugins = 'codesnippet';
 };

@@ -93,7 +93,7 @@
         })
       },
       onSuccess(response, file, fileList){
-        this.form.img_url = response.data.url;
+        this.form.img_url = response.url;
         this.$message({
           type:"success",
           message:response.msg

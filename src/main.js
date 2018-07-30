@@ -10,12 +10,14 @@ import store from '@/store/store'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
 import Util          from  "@/util/util"
+
 Vue.directive('highlight', (el) => {
   let blocks = el.querySelectorAll('pre code');
   blocks.forEach((block) => {
     hljs.highlightBlock(block)
   })
 });
+
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(Resource);

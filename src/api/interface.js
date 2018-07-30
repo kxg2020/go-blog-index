@@ -1,5 +1,5 @@
 const domain = "http://118.24.66.211:8888/admin";
-
+const upload = "http://118.24.66.211:8082";
 export default {
   name:"Api",
   adminRoot:{
@@ -57,7 +57,7 @@ export default {
     path:domain + "/article/delete"
   },
   uploadCover:{
-    path:domain + "/article/cover"
+    path:upload + "/upload/upload.php"
   }
 };
 

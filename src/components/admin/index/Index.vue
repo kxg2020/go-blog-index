@@ -7,7 +7,7 @@
                 </div>
                 <div >
                     <el-menu
-                            default-active="1"
+                            :default-active=this.$route.path
                             class="el-menu-vertical-demo"
                             @open="handleOpen"
                             @close="handleClose"
@@ -16,7 +16,7 @@
                             text-color="#fff"
                             active-text-color="#ffd04b">
                         <router-link to="/index/index">
-                            <el-menu-item index="0">
+                            <el-menu-item index="/index/index">
                                 <i class="el-icon-location"></i>
                                 <span slot="title">后台首页</span>
                             </el-menu-item>
@@ -27,10 +27,10 @@
                                 <span>用户管理</span>
                             </template>
                             <router-link to="/user/list">
-                                <el-menu-item index="1-1">用户列表</el-menu-item>
+                                <el-menu-item index="/user/list">用户列表</el-menu-item>
                             </router-link>
                             <router-link to="/user/insert">
-                                <el-menu-item index="1-2">新增用户</el-menu-item>
+                                <el-menu-item index="/user/insert">新增用户</el-menu-item>
                             </router-link>
                         </el-submenu>
                         <el-submenu index="2">
@@ -39,10 +39,10 @@
                                 <span>标签管理</span>
                             </template>
                             <router-link to="/tag/list">
-                                <el-menu-item index="2-1">标签列表</el-menu-item>
+                                <el-menu-item index="/tag/list">标签列表</el-menu-item>
                             </router-link>
                             <router-link to="/tag/insert">
-                                <el-menu-item index="2-2">新增标签</el-menu-item>
+                                <el-menu-item index="/tag/insert">新增标签</el-menu-item>
                             </router-link>
                         </el-submenu>
                         <el-submenu index="3">
@@ -51,10 +51,10 @@
                                 <span>文章管理</span>
                             </template>
                             <router-link to="/article/list">
-                                <el-menu-item index="3-1">文章列表</el-menu-item>
+                                <el-menu-item index="/article/list">文章列表</el-menu-item>
                             </router-link>
                             <router-link to="/article/insert">
-                                <el-menu-item index="3-2">新增文章</el-menu-item>
+                                <el-menu-item index="/article/insert">新增文章</el-menu-item>
                             </router-link>
                         </el-submenu>
                     </el-menu>
