@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # go-blog
 
 > A Vue.js project
@@ -29,4 +29,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 =======
 # go-blog-index
 go博客系统的前端vue页面
->>>>>>> 56ec5073d4e80379bb8891ac8808145f105583f6
+
