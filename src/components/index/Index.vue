@@ -40,35 +40,51 @@
                         <el-submenu index="2">
                             <template slot="title">
                                 <i class="el-icon-location"></i>
-                                <span>微信管理</span>
+                                <span>角色管理</span>
                             </template>
-                            <el-menu-item index="2-1" route="/wechat/list" :style="{textAlign:'center'}">列表</el-menu-item>
-                            <el-menu-item index="2-2" route="/wechat/add" :style="{textAlign:'center'}">新增</el-menu-item>
+                            <el-menu-item index="2-1" route="/user/list" :style="{textAlign:'center'}">列表</el-menu-item>
+                            <el-menu-item index="1-2" route="/user/add" :style="{textAlign:'center'}">新增</el-menu-item>
                         </el-submenu>
                         <el-submenu index="3">
                             <template slot="title">
                                 <i class="el-icon-location"></i>
-                                <span>文章管理</span>
+                                <span>权限管理</span>
                             </template>
-                            <el-menu-item index="3-1" :style="{textAlign:'center'}">列表</el-menu-item>
-                            <el-menu-item index="3-2" :style="{textAlign:'center'}">新增</el-menu-item>
-                            <el-menu-item index="3-3" :style="{textAlign:'center'}">选项3</el-menu-item>
+                            <el-menu-item index="3-1" route="/user/list" :style="{textAlign:'center'}">列表</el-menu-item>
+                            <el-menu-item index="3-2" route="/user/add" :style="{textAlign:'center'}">新增</el-menu-item>
                         </el-submenu>
                         <el-submenu index="4">
                             <template slot="title">
                                 <i class="el-icon-location"></i>
-                                <span>标签管理</span>
+                                <span>微信管理</span>
                             </template>
-                            <el-menu-item index="4-1" :style="{textAlign:'center'}">选项1</el-menu-item>
-                            <el-menu-item index="4-2" :style="{textAlign:'center'}">选项2</el-menu-item>
-                            <el-menu-item index="4-3" :style="{textAlign:'center'}">选项3</el-menu-item>
+                            <el-menu-item index="4-1" route="/wechat/list" :style="{textAlign:'center'}">列表</el-menu-item>
+                            <el-menu-item index="4-2" route="/wechat/add" :style="{textAlign:'center'}">新增</el-menu-item>
                         </el-submenu>
                         <el-submenu index="5">
                             <template slot="title">
                                 <i class="el-icon-location"></i>
+                                <span>文章管理</span>
+                            </template>
+                            <el-menu-item index="5-1" :style="{textAlign:'center'}">列表</el-menu-item>
+                            <el-menu-item index="5-2" :style="{textAlign:'center'}">新增</el-menu-item>
+                            <el-menu-item index="5-3" :style="{textAlign:'center'}">选项3</el-menu-item>
+                        </el-submenu>
+                        <el-submenu index="6">
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>标签管理</span>
+                            </template>
+                            <el-menu-item index="6-1" :style="{textAlign:'center'}">选项1</el-menu-item>
+                            <el-menu-item index="6-2" :style="{textAlign:'center'}">选项2</el-menu-item>
+                            <el-menu-item index="6-3" :style="{textAlign:'center'}">选项3</el-menu-item>
+                        </el-submenu>
+                        <el-submenu index="7">
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
                                 <span>系统管理</span>
                             </template>
-                            <el-menu-item index="4-1" :style="{textAlign:'center'}">系统配置</el-menu-item>
+                            <el-menu-item index="7-1" :style="{textAlign:'center'}">系统配置</el-menu-item>
                         </el-submenu>
                     </el-menu>
                 </el-col>

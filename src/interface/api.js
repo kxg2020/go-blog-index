@@ -8,6 +8,12 @@ const url = {
   },
   userList:{
     path:domain + "/userList"
+  },
+  addUser:{
+    path:domain + "/addUser"
+  },
+  delUser:{
+    path:domain + "/delUser"
   }
 };
 export default {

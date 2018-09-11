@@ -6,13 +6,14 @@ import router from './router'
 import store from "./vuex/store"
 import {
   Form,FormItem,Input,Button,Message,Menu,MenuItem,Submenu,Row,Col,MenuItemGroup,Breadcrumb,BreadcrumbItem,
-  Select,DatePicker,Checkbox,Option,TimePicker,Switch,CheckboxGroup,RadioGroup,Radio
+  Select,DatePicker,Checkbox,Option,TimePicker,Switch,CheckboxGroup,RadioGroup,Radio,Table,TableColumn,Popover,
+  Tag,Dialog,MessageBox
 } from 'element-ui';
 import resource from "vue-resource"
 import 'element-ui/lib/theme-chalk/index.css';
 import utils from "./utils/utils"
 
-Vue.prototype.$ELEMENT = { size: 'small' };
+Vue.prototype.$ELEMENT = { size: 'mini' };
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);
@@ -34,7 +35,13 @@ Vue.use(Switch);
 Vue.use(CheckboxGroup);
 Vue.use(RadioGroup);
 Vue.use(Radio);
+Vue.use(Table);
+Vue.use(TableColumn);
+Vue.use(Popover);
+Vue.use(Tag);
+Vue.use(Dialog);
 Vue.prototype.$message   = Message;
+Vue.prototype.$confirm = MessageBox.confirm;
 Vue.config.productionTip = false;
 Vue.use(resource);
 
