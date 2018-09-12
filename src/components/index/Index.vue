@@ -194,7 +194,7 @@ item.path}" > {{item.meta.name}}
     .top{
         height: 60px;
         width: 100%;
-        padding-left: 20px;
+        padding-left: 10px;
         padding-right: 10px;
     }
     .bread{

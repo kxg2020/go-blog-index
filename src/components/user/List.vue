@@ -1,5 +1,30 @@
 <template>
     <div style="width: 100%">
+        <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+            <el-form-item label="用户名">
+                <el-input v-model="searchForm.username" placeholder="请输入用户名"></el-input>
+            </el-form-item>
+            <el-form-item label="状态">
+                <el-select v-model="searchForm.status" placeholder="请选择状态">
+                    <el-option label="全部" value=""></el-option>
+                    <el-option label="启用" value="1"></el-option>
+                    <el-option label="禁用" value="0"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="创建时间">
+                <el-date-picker
+                        value-format="timestamp"
+                        v-model="searchForm.date"
+                        type="datetimerange"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期">
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit">查询</el-button>
+            </el-form-item>
+        </el-form>
         <el-table
                 :data="tableData"
                 :border = "true"
@@ -78,6 +103,11 @@
     name: "UserList",
       data() {
         return {
+          searchForm: {
+            username: '',
+            status  : '',
+            date    : [],
+          },
           tableData: [],
           userFormVisible:false,
           userForm:{
@@ -99,8 +129,38 @@
         }
       },
       methods:{
+        onSubmit() {
+          let self = this;
+          this.$http.post(Api.url.searchUser.path,this.searchForm).then((res)=>{
+            self.tableData = [];
+            if (res.body.status === 1){
+              for(var i in res.body.data){
+                self.tableData.push({
+                  id       : res.body.data[i]["id"],
+                  username : res.body.data[i]["username"],
+                  status   : (res.body.data[i]["status"] == 1) ? true : false,
+                  date     : res.body.data[i]["create_time"]
+                })
+              }
+            }
+          });
+        },
         handleStatus(index,row){
-          this.userForm.status = row.status
+          let self = this;
+          this.$http.post(Api.url.editUserStatus.path,{id:row.id,status:row.status ^ 0},{emulateJSON:true}).then((res)=>{
+            if (res.body.status === 1){
+              self.tableData[index]["status"] = (row.status ^ 0) ? true : false;
+              self.$message({
+                type:"success",
+                message:res.body.msg
+              })
+            }else{
+              self.$message({
+                type:"error",
+                message:res.body.msg
+              })
+            }
+          });
         },
         handleEdit(index, row) {
           console.log(index, row);
@@ -110,6 +170,7 @@
           this.$confirm('你确定要删除吗?', '提示', {
             cancelButtonText: '取消',
             confirmButtonText: '确定',
+            customClass: 'my-confirm',
             type: 'warning'
           }).then(() => {
             this.$http.post(Api.url.delUser.path,{id:row.id},{emulateJSON:true}).then((res)=>{

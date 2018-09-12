@@ -2,7 +2,7 @@
     <div class="main">
         <div class="main-content">
             <div class="login">
-                <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="70px" class="demo-ruleForm" v-bind:style="{width:'330px'}">
+                <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="70px" class="demo-ruleForm" v-bind:style="{width:'330px'}" label-position="left">
                     <el-form-item label="用户名" prop="username">
                         <el-input type="text" v-model="ruleForm.username" auto-complete="off"></el-input>
                     </el-form-item>

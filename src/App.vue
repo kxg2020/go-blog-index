@@ -32,5 +32,9 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-
+.my-confirm .el-message-box__btns .el-button{
+  padding: 7px 15px;
+  font-size: 12px;
+  border-radius: 3px;
+}
 </style>

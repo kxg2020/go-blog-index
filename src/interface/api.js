@@ -14,6 +14,12 @@ const url = {
   },
   delUser:{
     path:domain + "/delUser"
+  },
+  editUserStatus:{
+    path:domain + "/editUserStatus"
+  },
+  searchUser:{
+    path:domain + "/searchUser"
   }
 };
 export default {
