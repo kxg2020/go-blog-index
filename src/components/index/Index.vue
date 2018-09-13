@@ -25,7 +25,7 @@
                             background-color="#545c64"
                             text-color="#fff"
                             active-text-color="#ffd04b">
-                        <el-menu-item index="0" >
+                        <el-menu-item index="0"  route="/">
                             <i class="el-icon-location"></i>
                             <span slot="title">后台首页</span>
                         </el-menu-item>
@@ -36,22 +36,6 @@
                             </template>
                             <el-menu-item index="1-1" route="/user/list" :style="{textAlign:'center'}">列表</el-menu-item>
                             <el-menu-item index="1-2" route="/user/add" :style="{textAlign:'center'}">新增</el-menu-item>
-                        </el-submenu>
-                        <el-submenu index="2">
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>角色管理</span>
-                            </template>
-                            <el-menu-item index="2-1" route="/user/list" :style="{textAlign:'center'}">列表</el-menu-item>
-                            <el-menu-item index="1-2" route="/user/add" :style="{textAlign:'center'}">新增</el-menu-item>
-                        </el-submenu>
-                        <el-submenu index="3">
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>权限管理</span>
-                            </template>
-                            <el-menu-item index="3-1" route="/user/list" :style="{textAlign:'center'}">列表</el-menu-item>
-                            <el-menu-item index="3-2" route="/user/add" :style="{textAlign:'center'}">新增</el-menu-item>
                         </el-submenu>
                         <el-submenu index="4">
                             <template slot="title">
@@ -105,7 +89,11 @@ item.path}" > {{item.meta.name}}
                 </div>
 
                 <div class="middle">
-                    <router-view></router-view>
+                    <el-scrollbar class="example-scrollbar">
+                        <div class="middle-wrap">
+                            <router-view></router-view>
+                        </div>
+                    </el-scrollbar>
                 </div>
                 <div class="footer">
                     蜀20180101|copyright@macarinal
@@ -201,10 +189,12 @@ item.path}" > {{item.meta.name}}
         line-height: 60px;
     }
     .middle{
-        height: 100%;
+        height: calc(100% - 120px);
         width: 100%;
-        padding-left: 10px;
-        padding-right: 10px;
+        position: relative;
+    }
+    .middle-wrap{
+        padding: 10px;
     }
     .footer{
         height: 60px;
@@ -239,6 +229,13 @@ item.path}" > {{item.meta.name}}
         width: 200px;
     }
     .el-menu-vertical-demo .el-menu{
+        height: 100%;
+    }
+    .example-scrollbar{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
     }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100%">
+    <div style="width: 100%;">
         <el-form :inline="true" :model="searchForm" class="demo-form-inline">
             <el-form-item label="用户名">
                 <el-input v-model="searchForm.username" placeholder="请输入用户名"></el-input>
@@ -11,18 +11,20 @@
                     <el-option label="禁用" value="0"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="创建时间">
+            <el-form-item label="创建时间" >
                 <el-date-picker
+                        width="200px"
+                        :unlink-panels="true"
                         value-format="timestamp"
                         v-model="searchForm.date"
                         type="datetimerange"
                         range-separator="至"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期">
+                        start-placeholder="开始时间"
+                        end-placeholder="结束时间">
                 </el-date-picker>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit">查询</el-button>
+                <el-button type="primary" @click="searchUser">查询</el-button>
             </el-form-item>
         </el-form>
         <el-table
@@ -68,9 +70,18 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-pagination
+                v-if="loadData"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[16,30, 45, 75]"
+                :page-size="size"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
+        </el-pagination>
         <br>
         <el-button type="success" size="mini" @click="userFormVisible = true">添加</el-button>
-
         <el-dialog title="添加用户" :visible.sync="userFormVisible" :modal-append-to-body='false'>
             <el-form :model="userForm" status-icon :rules="rules" ref="userForm" label-width="100px" class="demo-ruleForm" labelPosition="left">
                 <el-form-item label="用户名" prop="username" >
@@ -103,11 +114,16 @@
     name: "UserList",
       data() {
         return {
+          total: 0,
+          size :16,
+          search:false,
+          currentPage:1,
           searchForm: {
             username: '',
             status  : '',
             date    : [],
           },
+          loadData: false,
           tableData: [],
           userFormVisible:false,
           userForm:{
@@ -129,21 +145,17 @@
         }
       },
       methods:{
-        onSubmit() {
-          let self = this;
-          this.$http.post(Api.url.searchUser.path,this.searchForm).then((res)=>{
-            self.tableData = [];
-            if (res.body.status === 1){
-              for(var i in res.body.data){
-                self.tableData.push({
-                  id       : res.body.data[i]["id"],
-                  username : res.body.data[i]["username"],
-                  status   : (res.body.data[i]["status"] == 1) ? true : false,
-                  date     : res.body.data[i]["create_time"]
-                })
-              }
-            }
-          });
+        handleSizeChange(val){
+          this.size = val;
+          this.getUserList();
+        },
+        handleCurrentChange(val){
+          this.currentPage = val;
+          this.getUserList();
+        },
+        searchUser() {
+          this.search = true;
+          this.getUserList()
         },
         handleStatus(index,row){
           let self = this;
@@ -175,7 +187,7 @@
           }).then(() => {
             this.$http.post(Api.url.delUser.path,{id:row.id},{emulateJSON:true}).then((res)=>{
               if(res.body.status === 1){
-                self.tableData.splice(index);
+                self.reload();
                 self.$message({
                   type: 'success',
                   message: res.body.msg
@@ -191,6 +203,36 @@
 
           });
         },
+        getUserList(){
+          let token = utils.utils.getCookie("user-token");
+          let self = this;
+          if (token){
+            let params = {
+              page:self.currentPage,
+              size:self.size,
+            };
+            this.search ? params.condition = this.searchForm : params.condition = {};
+            this.$http.post(Api.url.userList.path,params).then((res)=>{
+              self.loadData = true;
+              if (res.body.status === 1){
+                self.total = res["body"]["data"]["total"];
+                self.tableData = [];
+                for(let i in res["body"]["data"]["user"]){
+                  let status = false;
+                  if (res["body"]["data"]["user"][i]["status"] === 1){
+                    status = true
+                  }
+                  self.tableData.push({
+                    username: res["body"]["data"]["user"][i]["username"],
+                    status  : status,
+                    date    : res["body"]["data"]["user"][i]["create_time"],
+                    id      : res["body"]["data"]["user"][i]["id"],
+                  });
+                }
+              }
+            });
+          }
+        },
         cellStyle({row,rowIndex}){
           return {'font-size':'14px','text-align':"center"}
         },
@@ -205,12 +247,8 @@
                     message:res.body.msg,
                     duration:500
                   });
-                  self.tableData.push({
-                    username:self.userForm.username,
-                    status:self.userForm.status,
-                    date  :res.body.data.create_time,
-                    id    :res.body.data.id
-                  });
+                  this.reload();
+                  this.$refs.userForm.resetFields();
                   this.userFormVisible = !this.userFormVisible;
                 }else{
                   self.$message({
@@ -220,35 +258,20 @@
                   });
                 }
               });
-
-
             } else {
               return false;
             }
           });
-        }
+        },
+        reload() {
+          this.total = 0;
+          this.currentPage = 1;
+          this.tableData = [];
+          this.getUserList();
+        },
       },
     mounted(){
-      let token = utils.utils.getCookie("user-token");
-      let self = this;
-      if (token){
-        this.$http.post(Api.url.userList.path,{},{emulateJSON:true}).then((res)=>{
-          if (res.body.status === 1){
-            for(let i in res["body"]["data"]){
-              let status = false;
-              if (res["body"]["data"][i]["status"] === 1){
-                status = true
-              }
-              self.tableData.push({
-                username: res["body"]["data"][i]["username"],
-                status  : status,
-                date    : res["body"]["data"][i]["create_time"],
-                id      : res["body"]["data"][i]["id"],
-              });
-            }
-          }
-        });
-      }
+      this.getUserList();
     }
   }
 </script>

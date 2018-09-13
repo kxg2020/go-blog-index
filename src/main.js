@@ -7,7 +7,7 @@ import store from "./vuex/store"
 import {
   Form,FormItem,Input,Button,Message,Menu,MenuItem,Submenu,Row,Col,MenuItemGroup,Breadcrumb,BreadcrumbItem,
   Select,DatePicker,Checkbox,Option,TimePicker,Switch,CheckboxGroup,RadioGroup,Radio,Table,TableColumn,Popover,
-  Tag,Dialog,MessageBox
+  Tag,Dialog,MessageBox,Scrollbar,Pagination
 } from 'element-ui';
 import resource from "vue-resource"
 import 'element-ui/lib/theme-chalk/index.css';
@@ -40,6 +40,8 @@ Vue.use(TableColumn);
 Vue.use(Popover);
 Vue.use(Tag);
 Vue.use(Dialog);
+Vue.use(Pagination);
+Vue.use(Scrollbar);
 Vue.prototype.$message   = Message;
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.config.productionTip = false;

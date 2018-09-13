@@ -18,9 +18,6 @@ const url = {
   editUserStatus:{
     path:domain + "/editUserStatus"
   },
-  searchUser:{
-    path:domain + "/searchUser"
-  }
 };
 export default {
   name:"Api",
